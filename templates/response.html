@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section id="home" class="main_content">
+    <div class="container">
+      <div class="row mt-5">
+
+    <!--LEFT SIDE HOME-->
+    <div class="col-md-6 col-sm-12">
+        <div class="card card-body mb-3 shadow-sm">
+          <h4 class="text-center mb-1">
+            <b>Select Teams</b>
+          </h4>
+
+        <!-- Make a df of credits players and points scored -->
+        <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Table</th>
+                <th scope="col">Player</th>
+                <th scope="col">Team</th>
+                <th scope="col">Player Role</th>
+                <th scope="col">Credits</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for d in range(0,len_data) %}
+              <tr>
+                <th scope="row">{{d+1}}</th>
+                <td>{{data_players[d]}}</td>
+                <td>{{data_teams[d]}}</td>
+                <td>{{data_roles[d]}}</td>
+                <td>{{data_credits[d]}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!--HOME SECTION-->
+
+<section id="home" class="main_content">
+    <div class="container">
+      <div class="row mt-5">
+
+    <!--LEFT SIDE HOME-->
+    <div class="col-md-6 col-sm-12">
+        <div class="card card-body mb-3 shadow-sm">
+          <h4 class="text-center mb-1">
+            <b>Select Teams</b>
+          </h4>
+
+          <!--DATE HANDLING FORM-->
+
+         <div class="row my-4 text-center">
+                            
+            <!-- TEAM 1 DROPDOWN -->
+            <div class="col-6 p-1">
+                <form method="POST" action="{{ url_for('home') }}">
+              <div class="">
+                <div class="card-title lead">Team1</div>                   
+                 <select name="Team1" id="team1Select">
+                  <option style="display: none;"></option>
+                  {% for t, team in teams.items() %}
+                  <option value="{{t}}">{{team}}</option>
+                  {% endfor %}
+                 </select> 
+              </div>
+            </div>
+
+            <!-- TEAM 2 DROPDOWN -->
+            <div class="col-6 p-1">
+                <div class="">
+                  <div class="card-title lead">Team2</div>
+                   <select name="Team2" id="team2Select">
+                    <option style="display: none;"></option>
+                    {% for t,team in teams.items() %}
+                    <option value="{{t}}">{{team}}</option>
+                    {% endfor %}
+                   </select> 
+                </div>
+            </div>
+
+            <!-- Stadium DROPDOWN -->
+            <!-- <div class="col-6 p-1">
+              <div class="">
+                <div class="card-title lead"><b>Stadium</b></div>
+                <select name="Stadium" id="stadiumSelect">
+                  <option style="display: none;"></option>
+                  {% for stadium in stadiums %}
+                  <option value="{{stadium}}">{{stadium}}</option>
+                  {% endfor %}
+                 </select> 
+              </div>
+            </div> -->
+        
+            <!-- City DROPDOWN -->
+            <div class="col-6 p-1">
+              <div class="">
+                <div class="card-title lead"><b>City</b></div>
+                <select name="City" id="citySelect">
+                  <option style="display: none;"></option>
+                  {% for city in cities %}
+                  <option value="{{city}}">{{city}}</option>
+                  {% endfor %}
+              </select>
+              </div>
+           </div>
+            <!-- Toss winner DROPDOWN -->
+            <!-- Toss decision DROPDOWN -->
+
+
+
+          
+         </div>
+         <input type="submit" value="GetPlayers">
+          
+         </form>
+        </div>
+    </div>
+
+    
+    <!--RIGHT SIDE HOME-->
+    <div class="col-md-6 col-sm-12">
+        <div class="card card-body mb-3 shadow-sm"  id = 'select players'>
+          <h4 class="text-center mb-1">
+            <b>Select Players</b>
+          </h4>
+          <div class="row my-4 text-center">
+            
+            
+            <div class="col-6 p-1">
+                <form method="POST" action="{{ url_for('response') }}">
+              <div class="">
+                <div class="card-title lead" id="t1_players_Select"><b>Team1</b></div>
+                    {% if t1 != None%}
+                        {%for i in t1%}
+                            <input type="checkbox" id="" name="team1" value="{{i}}"><label for="">{{i}}</label><br>
+                        {% endfor %}
+                    {% endif %}                       
+              </div>
+           
+            </div>
+            <div class="col-6 p-1">
+
+                <div class="">
+                  
+                  <div class="card-title lead" id="t2_players_Select"><b>Team2</b></div>
+                    {% if t2 != 0 %}
+                        {%for i in t2%}
+                            <input type="checkbox" id="" name="team2" value="{{i}}"><label for="">{{i}}</label><br>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        <input type="submit" value="Submit">
+        </form>
+        </div>
+      
+        </div>
+    </div> 
+</div>
+</div>
+</section>
+
+{% endblock %}
