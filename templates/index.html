@@ -20,10 +20,10 @@
                             
             <!-- TEAM 1 DROPDOWN -->
             <div class="col-6 p-1">
-                <form method="POST" action="{{ url_for('home') }}">
+                <form autocomplete='off' method="POST" action="{{ url_for('home') }}">
               <div class="">
-                <div class="card-title lead">Team1</div>                   
-                 <select name="Team1" id="team1Select">
+                <div class="card-title lead"><b>Team1</b></div>                   
+                 <select name="Team1" id="team1Select" class='form-control' onclick=changeTeam1(this.value)>
                   <option style="display: none;"></option>
                   {% for t, team in teams.items() %}
                   <option value="{{t}}">{{team}}</option>
@@ -35,8 +35,8 @@
             <!-- TEAM 2 DROPDOWN -->
             <div class="col-6 p-1">
                 <div class="">
-                  <div class="card-title lead">Team2</div>
-                   <select name="Team2" id="team2Select">
+                  <div class="card-title lead"><b>Team2</b></div>
+                   <select name="Team2" id="team2Select" class='form-control' onclick=changeTeam2(this.value)>
                     <option style="display: none;"></option>
                     {% for t,team in teams.items() %}
                     <option value="{{t}}">{{team}}</option>
@@ -45,24 +45,24 @@
                 </div>
             </div>
 
-            <!-- Stadium DROPDOWN -->
-            <!-- <div class="col-6 p-1">
+            <!--Stadium DROPDOWN-->
+            <div class="col-6 p-1">
               <div class="">
                 <div class="card-title lead"><b>Stadium</b></div>
-                <select name="Stadium" id="stadiumSelect">
+                <select name="Stadium" id="stadiumSelect" class="form-control">
                   <option style="display: none;"></option>
                   {% for stadium in stadiums %}
                   <option value="{{stadium}}">{{stadium}}</option>
                   {% endfor %}
                  </select> 
               </div>
-            </div> -->
+            </div>
         
             <!-- City DROPDOWN -->
             <div class="col-6 p-1">
               <div class="">
                 <div class="card-title lead"><b>City</b></div>
-                <select name="City" id="citySelect">
+                <select name="City" id="citySelect" class="form-control">
                   <option style="display: none;"></option>
                   {% for city in cities %}
                   <option value="{{city}}">{{city}}</option>
@@ -71,13 +71,41 @@
               </div>
            </div>
             <!-- Toss winner DROPDOWN -->
-            <!-- Toss decision DROPDOWN -->
+
+            <div class="col-6 p-1">
+              <div class="">
+                <div class="card-title lead"><b>Toss Winner</b></div>
+                <select
+                  name="Toss Winner"
+                  id="twinnerSelect"
+                  class="form-control"
+                >
+              </select>
+              </div>
+           </div>
+
+           <!-- Toss decision DROPDOWN -->
+           <div class="col-6 p-1">
+              <div class="">
+                <div class="card-title lead"><b>Toss Decision</b></div>
+                <select
+                  name="Decision"
+                  id="decisionSelect"
+                  class="form-control"
+                >
+                  <option style="display: none;"></option>
+                  <option value="field">field</option>
+                  <option value="bat">bat</option>
+              </select>
+              </div>
+           </div>
+            
 
 
 
           
          </div>
-         <input type="submit" value="GetPlayers">
+         <input type="submit" value="GetPlayers" >
           
          </form>
         </div>
@@ -99,7 +127,7 @@
                 <div class="card-title lead" id="t1_players_Select"><b>Team1</b></div>
                     {% if t1 != None%}
                         {%for i in t1%}
-                            <input type="checkbox" id="" name="team1" value="{{i}}"><label for="">{{i}}</label><br>
+                            <input type="checkbox" id="select_players" name="team1" value="{{i}}"><label for="">{{i}}</label><br>
                         {% endfor %}
                     {% endif %}                       
               </div>
@@ -112,12 +140,12 @@
                   <div class="card-title lead" id="t2_players_Select"><b>Team2</b></div>
                     {% if t2 != 0 %}
                         {%for i in t2%}
-                            <input type="checkbox" id="" name="team2" value="{{i}}"><label for="">{{i}}</label><br>
+                            <input type="checkbox" id="select_players" name="team2" value="{{i}}"><label for="">{{i}}</label><br>
                         {% endfor %}
                     {% endif %}
                 </div>
             </div>
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit" >
         </form>
         </div>
       
@@ -126,5 +154,31 @@
 </div>
 </div>
 </section>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script> 
+  var Team1, Team2
+  function changeTeam1(team1){
+          Team1 = team1
+          toss_winner()
+      }
+
+      function changeTeam2(team2){
+          Team2 = team2
+          toss_winner()
+      }
+
+      function toss_winner(){
+          var str = ''
+          str = "<option>" + Team1 + "</option>"
+          str += "<option>" + Team2 + "</option>"
+          document.getElementById('twinnerSelect').innerHTML='';
+          document.getElementById('twinnerSelect').innerHTML+=str;
+      }
+
+      $(document).ready(function(){
+     $("#select players").innerHTML == '';
+});
+</script>
+
 
 {% endblock %}
