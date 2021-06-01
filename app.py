@@ -3,8 +3,6 @@ from flask import Flask, render_template, url_for, request
 import pandas as pd
 from werkzeug.utils import redirect
 import pickle
-# import xgboost
-# import scikit
 import pulp
 
 teams = {'CSK':'Chennai Super Kings', 'MI': 'Mumbai Indians', 'RCB': 'Royal Challengers Bangalore', 'RR': 'Rajasthan Royals', 'KKR': 'Kolkata Knight Riders', 'DC': 'Delhi Capitals', 'KXIP':'Kings XI Punjab', 'SRH':'Sunrisers Hyderabad'}
@@ -82,9 +80,9 @@ def home():
         print(stadium,city,toss_winner,toss_decision)
 
         t1, t2 = get_player_data(team1_name, team2_name)
-        return render_template("index1.html", t1 = t1, t2 = t2, teams = teams, stadiums = stadiums, cities = cities)
+        return render_template("index.html", t1 = t1, t2 = t2, teams = teams, stadiums = stadiums, cities = cities)
     else:
-        return render_template("index1.html", t1 = team1, t2 = team2, teams = teams, stadiums = stadiums, cities = cities)
+        return render_template("index.html", t1 = team1, t2 = team2, teams = teams, stadiums = stadiums, cities = cities)
 
 @app.route('/response/', methods=['GET','POST'])
 def response():
@@ -196,7 +194,9 @@ def get_model_input(team1_name, team2_name, city, venue, toss_winner, toss_decis
 
 def get_model_output_XGB(model_input):
 
-    XGBRF_model = pickle.load(open("dataset/Models/RF_reg.sav", 'rb'))
+    # XGBRF_model = pickle.load(open("dataset/Models/RF_reg.sav", 'rb')) RF 
+    XGBRF_model = pickle.load(open("dataset/Models/CAT_reg.sav", 'rb'))
+
     # model_xgb = xgboost.XGBRegressor()
     # XGBRF_model = model_xgb.load_model("dataset/Models/XGB_reg.json")
     
