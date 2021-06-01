@@ -109,11 +109,11 @@ def response():
         print(lp_output.columns)
         lpcol = lp_output.columns
         players = lp_output[lpcol[0]]
-        lp_team1 = lp_output[lpcol[1]]
-        lp_team2 = lp_output[lpcol[2]]
-        points = lp_output[lpcol[3]]
-        credits = lp_output[lpcol[4]]
-        return render_template("response.html", data_players = players , len_data = len(players), data_team1 = lp_team1, data_team2 = lp_team2, data_points = points, data_credits = credits, team1_name = team1_name, team2_name = team2_name )
+        lp_teams = lp_output[lpcol[1]]
+        points = lp_output[lpcol[2]]
+        credits = lp_output[lpcol[3]]
+        roles = lp_output[lpcol[4]]
+        return render_template("response.html", data_players = players , len_data = len(players), data_teams = lp_teams, data_points = points, data_credits = credits, team1_name = team1_name, team2_name = team2_name, data_roles = roles)
     else:
         return redirect({url_for('home')})
 
@@ -218,6 +218,25 @@ def get_model_output_XGB(model_input):
 
     return check
 
+def undummify(df, prefix_sep="_"):
+    cols2collapse = {
+        item.split(prefix_sep)[0]: (prefix_sep in item) for item in df.columns
+    }
+    series_list = []
+    for col, needs_to_collapse in cols2collapse.items():
+        if needs_to_collapse:
+            undummified = (
+                df.filter(like=col)
+                .idxmax(axis=1)
+                .apply(lambda x: x.split(prefix_sep, maxsplit=1)[1])
+                .rename(col)
+            )
+            series_list.append(undummified)
+        else:
+            series_list.append(df[col])
+    undummified_df = pd.concat(series_list, axis=1)
+    return undummified_df
+
 def get_lp_input(df, model_output_df):
     # print(model_output_df.columns)
     # print(df.columns)
@@ -310,13 +329,24 @@ def get_lp_output(processed_player_data):
 
     result = pd.merge(merged_processed_player_df, solutions_df, on = 'pulp_variable_name')
     result = result[result['value'] == 1].sort_values(by = 'points', ascending = False)
-    selected_cols_final = ['player', team_name_lp1, team_name_lp2, 'points', 'credit']
+    print(result)
+    role_df = undummify(result[['role_AR','role_BAT','role_BWL','role_WK']])
+    print(role_df)
+    result['role'] = role_df['role']
+
+    teamname_df = undummify(result[[ team_name_lp1, team_name_lp2]])
+    result['team'] = teamname_df['team']
+    print(result)
+    print('after',result.shape)
+    selected_cols_final = ['player', 'team','points', 'credit','role']
     final_set_of_players_to_be_selected = result[selected_cols_final]
     final_set_of_players_to_be_selected.reset_index(drop=True, inplace=True)
     print(final_set_of_players_to_be_selected)
 
     print("We can accrue an estimated points of %f"%(final_set_of_players_to_be_selected['points'].sum()))
     print("We want to see credits utilised %f"%(final_set_of_players_to_be_selected['credit'].sum()) )
+
+    final_set_of_players_to_be_selected.to_json('ft.json')
 
     return final_set_of_players_to_be_selected
 

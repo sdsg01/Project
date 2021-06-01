@@ -21,6 +21,7 @@
                 <th scope="col">Team</th>
                 <th scope="col">Points</th>
                 <th scope="col">Credits</th>
+                <th scope="col">Roles</th>
 
               </tr>
             </thead>
@@ -29,21 +30,204 @@
               <tr>
                 <th scope="row">{{d+1}}</th>
                 <td>{{data_players[d]}}</td>
-                {% if data_team1[d] == 1 %}
-                  <td>{{team1_name}}</td>
-                {% elif data_team2[d] == 1 %}
-                  <td>{{team2_name}}</td>
-                {% endif %}
+                <td>{{data_teams[d]}}</td>
                 <td>{{data_points[d]}}</td>
                 <td>{{data_credits[d]}}</td>
+                <td>{{data_roles[d]}}</td>
               </tr>
               {% endfor %}
             </tbody>
           </table>
+          <p id='players' style="display: none;" , value = {{data_players}}>{{data_players}}</p>
+          <p id='teams' style="display: none;">{{data_teams}}</p>
+          <p id='points' style="display: none;">{{data_points}}</p>
+          <p id='credits' style="display: none;">{{data_credits}}</p>
+          <p id='roles' style="display: none;">{{data_roles}}</p>
+          <p id='team1_name' style="display: none;">{{team1_name}}</p>
+          <p id='team2_name' style="display: none;">{{team2_name}}</p>
+    
 </div>
 </div>
 </div>
+</div>
+<div>
+  <h1>Pie Chart</h1>
+  <div>
+    <canvas id = 'chart' width="401" height="401" style="display: block; box-sizing: border-box; height: 401px; width: 401px;"></canvas>
+  </div>
+
 </div>
 </section>
+
+
+
+<script>
+  var players = ''
+  var teams = ''
+  var points = ''
+  var credits = ''
+  var roles = ''
+  var team1 = ''
+  var team2 = '' 
+   players = document.getElementById('players').innerHTML
+   teams = document.getElementById('teams').innerHTML
+   points = document.getElementById('points').innerHTML
+   credits = document.getElementById('credits').innerHTML
+   roles = document.getElementById('roles').innerHTML
+   team1 = document.getElementById('team1_name').innerHTML
+   team2 = document.getElementById('team2_name').innerHTML
+  
+//   var data
+// function fetchfiles() {
+//         var xhttp = new XMLHttpRequest();
+//         xhttp.onreadystatechange = function() {
+//         if (this.readyState == 4 && this.status == 200) {
+//           data = JSON.parse(this.responseText);
+//           setTimeout(function () {
+//               console.log(data)
+//             }, 5000);
+//         }
+//       };
+//       xhttp.open("GET", "ft.json", true);
+//       xhttp.send();
+//       console.log(data)
+//       }
+
+//       window.onload = fetchfiles;
+
+function get_data(str_data){
+  team1_count = 0
+  team2_count = 0
+  //console.log(team1,team2)
+  //console.log(teams)
+  if(str_data =='teams'){
+    for(var i=0;i<11;i++){
+    if(teams[i] == team1){
+      team1_count++
+      console.log(teams[i])
+      //console.log(team1_count)
+    }
+    else{
+      //console.log(teams[i])
+      team2_count++
+    }
+  }
+  console.log("Team count:", [team1_count,team2_count])
+  return [team1_count,team2_count]
+  }
+  else{
+    for(var i=0;i<11;i++){
+    if(teams[i] == team1 && roles[i]==str_data){
+      team1_count++
+    }
+    else if(teams[i] == team2 && roles[i]==str_data){
+      team2_count++
+    }
+  }
+  console.log(str_data,"count:", [team1_count,team2_count])
+  return [team1_count,team2_count]
+  }
+}
+
+function get_multiseriespie_input(){
+
+  var data = {
+  labels: ['Team1', 'Team2', 'Batsmen Team1', 'Batsmen Team2', 'Bowlers Team1', 'Bowlers Team2', 'All-Rounders Team1', 'All-Rounders Team2','Wicket keeper Team1','Wicket keeper Team2'],
+  //labels: ['Overall Yay', 'Overall Nay', 'Group A Yay', 'Group A Nay', 'Group B Yay', 'Group B Nay', 'Group C Yay', 'Group C Nay'],
+  datasets: [
+    { //teams 
+      backgroundColor: ['#AAA', '#777'],
+      data: [4,7]//get_data('teams')
+    },
+    {
+      //Get Batsmen
+      backgroundColor: ['hsl(0, 100%, 60%)', 'hsl(0, 100%, 35%)'],
+      data: [0,3]//get_data('BAT')
+    },
+    {
+      backgroundColor: ['hsl(100, 100%, 60%)', 'hsl(100, 100%, 35%)'],
+      data: [2,2]//get_data('BWL')
+    },
+    {
+      backgroundColor: ['hsl(180, 100%, 60%)', 'hsl(180, 100%, 35%)'],
+      data: [1,1]//get_data('AR')
+    },
+    {
+      backgroundColor: ['hsl(280, 100%, 60%)', 'hsl(280, 100%, 35%)'],
+      data: [1,0]//get_data('WK')
+    }
+  ]
+};
+// </block:setup>
+display_chart(data)
+}
+
+function display_chart(data){
+  // <block:config:0>
+  
+  const config = {
+  type: 'pie',
+  data: data,
+  options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        labels: {
+          generateLabels: function(chart) {
+            // Get the default label list
+            const original = Chart.overrides.pie.plugins.legend.labels.generateLabels;
+            const labelsOriginal = original.call(this, chart);
+
+            // Build an array of colors used in the datasets of the chart
+            var datasetColors = chart.data.datasets.map(function(e) {
+              return e.backgroundColor;
+            });
+            datasetColors = datasetColors.flat();
+
+            // Modify the color and hide state of each label
+            labelsOriginal.forEach(label => {
+              // There are twice as many labels as there are datasets. This converts the label index into the corresponding dataset index
+              label.datasetIndex = (label.index - label.index % 2) / 2;
+
+              // The hidden state must match the dataset's hidden state
+              label.hidden = !chart.isDatasetVisible(label.datasetIndex);
+
+              // Change the color to match the dataset
+              label.fillStyle = datasetColors[label.index];
+            });
+
+            return labelsOriginal;
+          }
+        },
+        onClick: function(mouseEvent, legendItem, legend) {
+          // toggle the visibility of the dataset from what it currently is
+          legend.chart.getDatasetMeta(
+            legendItem.datasetIndex
+          ).hidden = legend.chart.isDatasetVisible(legendItem.datasetIndex);
+          legend.chart.update();
+        }
+      },
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+            const labelIndex = (context.datasetIndex * 2) + context.dataIndex;
+            return context.chart.data.labels[labelIndex] + ': ' + context.formattedValue;
+          }
+        }
+      }
+    }
+  },
+};
+// </block:config>
+
+// module.exports = {
+//   config: config,
+// };
+
+new Chart(document.getElementById('chart'),config)
+}
+window.onload = get_multiseriespie_input
+
+</script>
 
 {% endblock %}
