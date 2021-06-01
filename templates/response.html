@@ -29,22 +29,18 @@
                 {% for d in range(0,len_data) %}
               <tr>
                 <th scope="row">{{d+1}}</th>
-                <td>{{data_players[d]}}</td>
-                <td>{{data_teams[d]}}</td>
-                <td>{{data_points[d]}}</td>
-                <td>{{data_credits[d]}}</td>
-                <td>{{data_roles[d]}}</td>
+                <td name ='players' value="{{data_players[d]}}">{{data_players[d]}}</td>
+                <td name ='teams' value="{{data_teams[d]}}">{{data_teams[d]}}</td>
+                <td name ='points' value="{{data_points[d]}}">{{data_points[d]}}</td>
+                <td name ='credits' value="{{data_credits[d]}}">{{data_credits[d]}}</td>
+                <td name ='roles' value="{{data_roles[d]}}">{{data_roles[d]}}</td>
               </tr>
               {% endfor %}
             </tbody>
           </table>
-          <p id='players' style="display: none;" , value = {{data_players}}>{{data_players}}</p>
-          <p id='teams' style="display: none;">{{data_teams}}</p>
-          <p id='points' style="display: none;">{{data_points}}</p>
-          <p id='credits' style="display: none;">{{data_credits}}</p>
-          <p id='roles' style="display: none;">{{data_roles}}</p>
-          <p id='team1_name' style="display: none;">{{team1_name}}</p>
-          <p id='team2_name' style="display: none;">{{team2_name}}</p>
+
+          <p id='team1_name' value = "{{team1_name}}" style="display: none;">{{team1_name}}</p>
+          <p id='team2_name' value = "{{team2_name}}" style="display: none;">{{team2_name}}</p>
     
 </div>
 </div>
@@ -59,8 +55,6 @@
 </div>
 </section>
 
-
-
 <script>
   var players = ''
   var teams = ''
@@ -69,64 +63,49 @@
   var roles = ''
   var team1 = ''
   var team2 = '' 
-   players = document.getElementById('players').innerHTML
-   teams = document.getElementById('teams').innerHTML
-   points = document.getElementById('points').innerHTML
-   credits = document.getElementById('credits').innerHTML
-   roles = document.getElementById('roles').innerHTML
+
+   players = document.getElementsByName('players')
+   teams = document.getElementsByName('teams')
+   points = document.getElementsByName('points')
+   credits = document.getElementsByName('credits')
+   roles = document.getElementsByName('roles')
+
    team1 = document.getElementById('team1_name').innerHTML
    team2 = document.getElementById('team2_name').innerHTML
   
-//   var data
-// function fetchfiles() {
-//         var xhttp = new XMLHttpRequest();
-//         xhttp.onreadystatechange = function() {
-//         if (this.readyState == 4 && this.status == 200) {
-//           data = JSON.parse(this.responseText);
-//           setTimeout(function () {
-//               console.log(data)
-//             }, 5000);
-//         }
-//       };
-//       xhttp.open("GET", "ft.json", true);
-//       xhttp.send();
-//       console.log(data)
-//       }
-
-//       window.onload = fetchfiles;
 
 function get_data(str_data){
+
   team1_count = 0
   team2_count = 0
-  //console.log(team1,team2)
-  //console.log(teams)
-  if(str_data =='teams'){
+
+  if(str_data == 'teams'){
     for(var i=0;i<11;i++){
-    if(teams[i] == team1){
-      team1_count++
-      console.log(teams[i])
-      //console.log(team1_count)
+      
+    if(teams[i].innerHTML == team1){
+      team1_count+=1
     }
     else{
-      //console.log(teams[i])
-      team2_count++
+      team2_count+=1
     }
   }
-  console.log("Team count:", [team1_count,team2_count])
+  // console.log("Team count:", [team1_count,team2_count])
   return [team1_count,team2_count]
   }
+
   else{
     for(var i=0;i<11;i++){
-    if(teams[i] == team1 && roles[i]==str_data){
+
+    if(teams[i].innerHTML == team1 && roles[i].innerHTML == str_data){
       team1_count++
     }
-    else if(teams[i] == team2 && roles[i]==str_data){
+    else if(teams[i].innerHTML == team2 && roles[i].innerHTML == str_data){
       team2_count++
     }
   }
-  console.log(str_data,"count:", [team1_count,team2_count])
-  return [team1_count,team2_count]
   }
+  // console.log(str_data,"count:", [team1_count,team2_count])
+  return [team1_count,team2_count]
 }
 
 function get_multiseriespie_input(){
@@ -137,24 +116,24 @@ function get_multiseriespie_input(){
   datasets: [
     { //teams 
       backgroundColor: ['#AAA', '#777'],
-      data: [4,7]//get_data('teams')
+      data: get_data('teams')
     },
     {
       //Get Batsmen
       backgroundColor: ['hsl(0, 100%, 60%)', 'hsl(0, 100%, 35%)'],
-      data: [0,3]//get_data('BAT')
+      data: get_data('BAT')
     },
     {
       backgroundColor: ['hsl(100, 100%, 60%)', 'hsl(100, 100%, 35%)'],
-      data: [2,2]//get_data('BWL')
+      data: get_data('BWL')
     },
     {
       backgroundColor: ['hsl(180, 100%, 60%)', 'hsl(180, 100%, 35%)'],
-      data: [1,1]//get_data('AR')
+      data: get_data('AR')
     },
     {
       backgroundColor: ['hsl(280, 100%, 60%)', 'hsl(280, 100%, 35%)'],
-      data: [1,0]//get_data('WK')
+      data: get_data('WK')
     }
   ]
 };
