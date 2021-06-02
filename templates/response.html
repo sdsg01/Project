@@ -46,15 +46,46 @@
 </div>
 </div>
 </div>
-<div>
-  <h1>Pie Chart</h1>
-  <div>
-    <canvas id = 'chart' width="401" height="401" style="display: block; box-sizing: border-box; height: 401px; width: 401px;"></canvas>
+
+<div class="container">
+  <div class="row mt-5">
+    <!-- left side -->
+    <div class="col-md-6 col-sm-12">
+      <div class="card card-body mb-3 shadow-sm">
+        <h1 class="text-center mb-1">
+          <b>Fantasy Team: Team Distribution</b>
+        </h1>
+        <div class='chart-container' style="height:30vh; width:30vw">
+          <!-- <canvas id = 'chart' width="300" height="300" style="display: block; box-sizing: border-box; height: 300px; width: 300px;"></canvas> -->
+          <canvas id = 'pie_chart' width="300" height="300" style="position: relative;"></canvas>
+        </div>
+      </div>
+    </div>
+    <!-- right side -->
+    <div class="col-md-6 col-sm-12">
+      <div class="card card-body mb-3 shadow-sm">
+        <h1 class="text-center mb-1">
+          <b>Fantasy Team: Team Player Categories</b>
+        </h1>
+        <div class='chart-container' style="height:30vh; width:30vw">
+          <!-- <canvas id = 'chart' width="300" height="300" style="display: block; box-sizing: border-box; height: 300px; width: 300px;"></canvas> -->
+          <canvas id = 'bar_chart' width="300" height="300" style="position: relative;"></canvas>
+        </div>
+      </div>
+    </div>
   </div>
-
 </div>
-</section>
 
+</section>
+<style>
+.chart-container{
+  display: inline-block;
+  position: relative;
+  margin: auto;
+  height: 20vh;
+  width: 40vw;
+}
+</style>
 <script>
   var players = ''
   var teams = ''
@@ -89,7 +120,7 @@ function get_data(str_data){
       team2_count+=1
     }
   }
-  // console.log("Team count:", [team1_count,team2_count])
+  console.log("Team count:", [team1_count,team2_count])
   return [team1_count,team2_count]
   }
 
@@ -104,47 +135,55 @@ function get_data(str_data){
     }
   }
   }
-  // console.log(str_data,"count:", [team1_count,team2_count])
+  console.log(str_data,"count:", [team1_count,team2_count])
+
+  console.log('bar data')
   return [team1_count,team2_count]
 }
 
-function get_multiseriespie_input(){
+//mutliseries pie
+
+function get_piechart_data(str_data){
+  var temp = get_data(str_data)
+  var total = temp[0] + temp[1]
+  return [(temp[0]/total)*100,(temp[1]/total)*100]
+}
+
+function get_pie_chart(){
 
   var data = {
-  labels: ['Team1', 'Team2', 'Batsmen Team1', 'Batsmen Team2', 'Bowlers Team1', 'Bowlers Team2', 'All-Rounders Team1', 'All-Rounders Team2','Wicket keeper Team1','Wicket keeper Team2'],
-  //labels: ['Overall Yay', 'Overall Nay', 'Group A Yay', 'Group A Nay', 'Group B Yay', 'Group B Nay', 'Group C Yay', 'Group C Nay'],
+  //labels: ['Team1', 'Team2', 'Batsmen Team1', 'Batsmen Team2', 'Bowlers Team1', 'Bowlers Team2', 'All-Rounders Team1', 'All-Rounders Team2','Wicket keeper Team1','Wicket keeper Team2'],
+  labels: [team1, team2],
   datasets: [
     { //teams 
-      backgroundColor: ['#AAA', '#777'],
+      backgroundColor: ['hsl(200, 100%, 50%)', 'hsl(16, 100%, 50%)'],
+      //data: get_piechart_data('teams')
       data: get_data('teams')
-    },
-    {
-      //Get Batsmen
-      backgroundColor: ['hsl(0, 100%, 60%)', 'hsl(0, 100%, 35%)'],
-      data: get_data('BAT')
-    },
-    {
-      backgroundColor: ['hsl(100, 100%, 60%)', 'hsl(100, 100%, 35%)'],
-      data: get_data('BWL')
-    },
-    {
-      backgroundColor: ['hsl(180, 100%, 60%)', 'hsl(180, 100%, 35%)'],
-      data: get_data('AR')
-    },
-    {
-      backgroundColor: ['hsl(280, 100%, 60%)', 'hsl(280, 100%, 35%)'],
-      data: get_data('WK')
     }
+    // },
+    // {
+    //   //Get Batsmen
+    //   backgroundColor: ['hsl(0, 100%, 60%)', 'hsl(0, 100%, 35%)'],
+    //   data: get_piechart_data('BAT')
+    // },
+    // {
+    //   backgroundColor: ['hsl(100, 100%, 60%)', 'hsl(100, 100%, 35%)'],
+    //   data: get_piechart_data('BWL')
+    // },
+    // {
+    //   backgroundColor: ['hsl(180, 100%, 60%)', 'hsl(180, 100%, 35%)'],
+    //   data: get_piechart_data('AR')
+    // },
+    // {
+    //   backgroundColor: ['hsl(280, 100%, 60%)', 'hsl(280, 100%, 35%)'],
+    //   data: get_piechart_data('WK')
+    // }
   ]
 };
 // </block:setup>
-display_chart(data)
-}
-
-function display_chart(data){
   // <block:config:0>
   
-  const config = {
+    const config = {
   type: 'pie',
   data: data,
   options: {
@@ -197,16 +236,89 @@ function display_chart(data){
     }
   },
 };
+
+new Chart(document.getElementById('pie_chart'),config)
+
+}
+
+
+//Bar chart
+function get_barchart_data(str_team){
+
+  bat_count = get_data('BAT')
+  bwl_count = get_data('BWL')
+  ar_count = get_data('AR')
+  wk_count = get_data('WK')
+  var team1_bar_count = [bat_count[0],bwl_count[0],ar_count[0],wk_count[0]]
+  var team2_bar_count = [bat_count[1],bwl_count[1],ar_count[1],wk_count[1]]
+
+  console.log(team1_bar_count, team2_bar_count)
+  
+  if(str_team == 'team1'){
+    return team1_bar_count
+  }
+  else{
+    return team2_bar_count
+  }
+}
+
+
+
+//
+
+function get_bar_chart(){
+
+  const data = {
+    labels: ['Batsmen','Bowler','All Rounder','Wicket Keeper'],
+    datasets: [
+      {
+        label: team1,
+        data: get_barchart_data('team1'),
+        //borderColor: 'hsl(200, 100%, 20%)',
+        backgroundColor: 'hsl(200, 100%, 50%)',
+      },
+      {
+        label: team2,
+        data: get_barchart_data('team2'),
+        //borderColor: 'hsl(16, 100%, 20%)',
+        backgroundColor: 'hsl(16, 100%, 50%)',
+      }
+    ]
+  };
+  // </block:setup>
+
+// <block:config:0>
+const config = {
+  type: 'bar',
+  data: data,
+  options: {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: 'Chart.js Bar Chart'
+      }
+    }
+  },
+};
 // </block:config>
 
-// module.exports = {
-//   config: config,
-// };
-
-new Chart(document.getElementById('chart'),config)
+new Chart(document.getElementById('bar_chart'),config)
 }
-window.onload = get_multiseriespie_input
+
+function call_charts(){
+  get_pie_chart()
+  get_bar_chart()
+  
+}
+window.onload = call_charts
 
 </script>
+
+
+
 
 {% endblock %}
