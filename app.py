@@ -4,6 +4,7 @@ import pandas as pd
 from werkzeug.utils import redirect
 import pickle
 import pulp
+import xgboost
 
 teams = {'CSK':'Chennai Super Kings', 'MI': 'Mumbai Indians', 'RCB': 'Royal Challengers Bangalore', 'RR': 'Rajasthan Royals', 'KKR': 'Kolkata Knight Riders', 'DC': 'Delhi Capitals', 'KXIP':'Kings XI Punjab', 'SRH':'Sunrisers Hyderabad'}
 stadiums = ['M Chinnaswamy Stadium',
@@ -113,7 +114,20 @@ def response():
         points = lp_output[lpcol[2]]
         credits = lp_output[lpcol[3]]
         roles = lp_output[lpcol[4]]
-        return render_template("response.html", data_players = players , len_data = len(players), data_teams = lp_teams, data_points = points, data_credits = credits, team1_name = team1_name, team2_name = team2_name, data_roles = roles)
+        WK_players = []
+        BAT_players = []
+        AR_players = []
+        BWL_players = []
+        for i in range(len(players)):
+            if roles[i]=="WK":
+                WK_players.append(players[i])
+            elif roles[i]=="BAT":
+                BAT_players.append(players[i])
+            elif roles[i]=="AR":
+                AR_players.append(players[i])
+            else:
+                BWL_players.append(players[i])
+        return render_template("response.html", data_players = players , len_data = len(players), data_teams = lp_teams, data_points = points, data_credits = credits, team1_name = team1_name, team2_name = team2_name, data_roles = roles, WK_players = WK_players, BAT_players = BAT_players, AR_players = AR_players, BWL_players = BWL_players)
     else:
         return redirect({url_for('home')})
 
@@ -198,7 +212,7 @@ def get_model_output_XGB(model_input):
     XGBRF_model = pickle.load(open("dataset/Models/CAT_reg.sav", 'rb'))
 
     # model_xgb = xgboost.XGBRegressor()
-    # XGBRF_model = model_xgb.load_model("dataset/Models/XGB_reg.json")
+    # XGBRF_model = pickle.load(open("dataset/Models/XGB_reg.sav", 'rb'))
     
     check_df = model_input.copy(deep=True)
     model_input.drop(columns=['id','playername'], inplace=True)
