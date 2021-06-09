@@ -31,7 +31,14 @@
                 {% for d in range(0,len_data) %}
               <tr>
                 <th scope="row">{{d+1}}</th>
-                <td name ='players' value="{{data_players[d]}}">{{data_players[d]}}</td>
+                {% if d == 0 %}
+                  <td name ='players' value="{{data_players[d]}}">{{data_players[d]}} [Captian]</td>
+                {% elif d == 1 %}
+                  <td name ='players' value="{{data_players[d]}}">{{data_players[d]}} [Vice-Captian]</td>
+                {% else %}
+                  <td name ='players' value="{{data_players[d]}}">{{data_players[d]}}</td>
+                {% endif %}
+
                 <td name ='teams' value="{{data_teams[d]}}">{{data_teams[d]}}</td>
                 <!-- <td name ='points' value="{{data_points[d]}}">{{data_points[d]}}</td> -->
                 <td name ='credits' value="{{data_credits[d]}}">{{data_credits[d]}}</td>
@@ -172,7 +179,7 @@
 .ft-form__ground {
   
     height: 46.75rem;
-    background-size: contain;
+    background-size:cover;
     background-repeat: no-repeat;
     background-position: 50%;
 }
