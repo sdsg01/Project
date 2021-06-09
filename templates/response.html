@@ -7,19 +7,21 @@
 
     <!--LEFT SIDE HOME-->
     <div class="col-md-6 col-sm-12">
+     
         <div class="card card-body mb-3 shadow-sm">
-          <!-- <h4 class="text-center mb-1">
+          <br>
+          <h4 class="text-center mb-1">
             <b>Generated Fantasy Team</b>
-          </h4> -->
-
+          </h4>
+        <br><br>
         <!-- Make a df of credits players and points scored -->
         <table class="table table-striped">
             <thead>
               <tr>
-                <th scope="col">Table</th>
+                <th scope="col">No.</th>
                 <th scope="col">Player</th>
                 <th scope="col">Team</th>
-                <th scope="col">Points</th>
+                <!-- <th scope="col">Points</th> -->
                 <th scope="col">Credits</th>
                 <th scope="col">Roles</th>
 
@@ -31,7 +33,7 @@
                 <th scope="row">{{d+1}}</th>
                 <td name ='players' value="{{data_players[d]}}">{{data_players[d]}}</td>
                 <td name ='teams' value="{{data_teams[d]}}">{{data_teams[d]}}</td>
-                <td name ='points' value="{{data_points[d]}}">{{data_points[d]}}</td>
+                <!-- <td name ='points' value="{{data_points[d]}}">{{data_points[d]}}</td> -->
                 <td name ='credits' value="{{data_credits[d]}}">{{data_credits[d]}}</td>
                 <td name ='roles' value="{{data_roles[d]}}">{{data_roles[d]}}</td>
               </tr>
@@ -43,6 +45,8 @@
           <p id='team2_name' value = "{{team2_name}}" style="display: none;">{{team2_name}}</p>
     
       </div>
+      <br>
+      <br>
     </div>
 
     <!--Right Side Home-->
@@ -51,10 +55,13 @@
         <!-- <h4 class="text-center mb-1">
           <b>Generated Fantasy Team</b>
         </h4> -->
-        <div class="ft-form__ground" style="background-image: url(&quot;/static/images/pitch.png&quot;);">
+        <div class="ft-form__ground" style="background-image: url(&quot;/static/images/pitch_new.png&quot;);">
           <div class="ft-form__ground-players">
-
+            <br>
+            <br>
+            <h6 style='text-align: center;'>Wicket-Keepers</h6>
             <div class="ft-form__ground-players--row">
+            
               <!-- <span>Wicket-Keepers</span> -->
               {% for player in WK_players%}
               <div class="ft-form__ground-players--person">
@@ -68,7 +75,7 @@
               {% endfor %}
             </div>
 
-
+            <h6 style='text-align: center;'>Batsmen</h6>
             <div class="ft-form__ground-players--row">
               <!-- <span>Batsmen</span> -->
               {% for player in BAT_players%}
@@ -83,6 +90,7 @@
               {% endfor %}
             </div>
            
+            <h6 style='text-align: center;'>All-Rounders</h6>
             <div class="ft-form__ground-players--row">
               {% for player in AR_players%}
               <div class="ft-form__ground-players--person">
@@ -96,6 +104,7 @@
               {% endfor %}
             </div>
 
+            <h6 style='text-align: center;'>Bowlers</h6>
             <div class="ft-form__ground-players--row">
               {% for player in BWL_players%}
               <div class="ft-form__ground-players--person">
@@ -109,7 +118,7 @@
               {% endfor %}
             </div> 
 
-           
+           <br>
             
           </div>
         </div>
@@ -161,10 +170,8 @@
 }
 
 .ft-form__ground {
-    /* width: 30rem; */
+  
     height: 46.75rem;
-    margin: 0 2rem;
-    padding-top: 1rem;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: 50%;
@@ -172,10 +179,13 @@
 .ft-form__ground-players {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: inherit;
+    /* padding: 25px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%; */
 }
 .ft-form__ground-players--row {
-    flex: 2 2;
+    flex: 1 1;
     display: flex;
     align-items: flex-start;
     justify-content: space-evenly;
@@ -203,8 +213,8 @@
 } */
 
 img{
-width: 50px;
-height: 50px;
+width: 70px;
+height: 70px;
 }
 </style>
 <script>

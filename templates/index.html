@@ -156,7 +156,8 @@
 </section>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script> 
-  var Team1, Team2
+  var Team1 = ''
+  var Team2 = ''
   function changeTeam1(team1){
           Team1 = team1
           toss_winner()
@@ -168,11 +169,17 @@
       }
 
       function toss_winner(){
+        if(Team1==="" || Team2===""){
+          console.log('inside')
+        }
+        else{
           var str = ''
-          str = "<option>" + Team1 + "</option>"
-          str += "<option>" + Team2 + "</option>"
+          str = '<option style="display: none;"></option>'
+          str += '<option>' + Team1 + '</option>'
+          str += '<option>' + Team2 + '</option>'
           document.getElementById('twinnerSelect').innerHTML='';
           document.getElementById('twinnerSelect').innerHTML+=str;
+        }
       }
 
       $(document).ready(function(){
