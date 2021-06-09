@@ -118,6 +118,17 @@ def response():
         BAT_players = []
         AR_players = []
         BWL_players = []
+        t1_players = []
+        t2_players = []
+        for i, row in lp_output.iterrows():
+            if lp_output['team'][i] == team1_name:
+                t1_players.append(lp_output['player'][i])
+            else:
+                # t2_players.append(lp_output[players[i]])
+                t2_players.append(lp_output['player'][i])
+
+
+
         for i in range(len(players)):
             if roles[i]=="WK":
                 WK_players.append(players[i])
@@ -127,7 +138,8 @@ def response():
                 AR_players.append(players[i])
             else:
                 BWL_players.append(players[i])
-        return render_template("response.html", data_players = players , len_data = len(players), data_teams = lp_teams, data_points = points, data_credits = credits, team1_name = team1_name, team2_name = team2_name, data_roles = roles, WK_players = WK_players, BAT_players = BAT_players, AR_players = AR_players, BWL_players = BWL_players)
+
+        return render_template("response.html", t1_players = t1_players, t2_players = t2_players, data_players = players , len_data = len(players), data_teams = lp_teams, data_points = points, data_credits = credits, team1_name = team1_name, team2_name = team2_name, data_roles = roles, WK_players = WK_players, BAT_players = BAT_players, AR_players = AR_players, BWL_players = BWL_players)
     else:
         return redirect({url_for('home')})
 

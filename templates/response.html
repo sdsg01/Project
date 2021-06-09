@@ -48,79 +48,75 @@
     <!--Right Side Home-->
     <div class="col-md-6 col-sm-12">
       <div class="card card-body mb-3 shadow-sm">
-        <h4 class="text-center mb-1">
+        <!-- <h4 class="text-center mb-1">
           <b>Generated Fantasy Team</b>
-        </h4>
-<!-- Make a df of credits players and points scored -->
-        <div class="ft-form__ground" style="background-image: url(&quot;/static/images/pitch2.png&quot;);">
+        </h4> -->
+        <div class="ft-form__ground" style="background-image: url(&quot;/static/images/pitch.png&quot;);">
           <div class="ft-form__ground-players">
 
-            <br>
-            <br>
             <div class="ft-form__ground-players--row">
+              <!-- <span>Wicket-Keepers</span> -->
               {% for player in WK_players%}
               <div class="ft-form__ground-players--person">
-                <img alt="#" src="/static/images/player.png">
-                <br>
+                {% if player is in t1_players%}
+                <img alt="#" src="/static/images/{{team1_name}}.png">
+                {% else %}
+                <img alt="#" src="/static/images/{{team2_name}}.png">
+                {% endif %}
                 <span>{{player}}</span>
               </div>
               {% endfor %}
             </div>
 
-            <br>
-            <br>
-            <br>
-            <br>
 
             <div class="ft-form__ground-players--row">
+              <!-- <span>Batsmen</span> -->
               {% for player in BAT_players%}
               <div class="ft-form__ground-players--person">
-                <img alt="#" src="/static/images/player.png">
-                <br>
+                {% if player is in t1_players%}
+                <img alt="#" src="/static/images/{{team1_name}}.png">
+                {% else %}
+                <img alt="#" src="/static/images/{{team2_name}}.png">
+                {% endif %}
                 <span>{{player}}</span>
               </div>
               {% endfor %}
             </div>
-
-            <br>
-            <br>
-            <br>
-            <br>
-
+           
             <div class="ft-form__ground-players--row">
               {% for player in AR_players%}
               <div class="ft-form__ground-players--person">
-                <!-- <img alt="#" src="/static/images/player.png"> -->
-                <img alt="#" src="/static/images/shirt.png">
-                <br>
+                {% if player is in t1_players%}
+                <img alt="#" src="/static/images/{{team1_name}}.png">
+                {% else %}
+                <img alt="#" src="/static/images/{{team2_name}}.png">
+                {% endif %}
                 <span>{{player}}</span>
               </div>
               {% endfor %}
             </div>
-
-            <br>
-            <br>
-            <br>
-            <br>
 
             <div class="ft-form__ground-players--row">
               {% for player in BWL_players%}
               <div class="ft-form__ground-players--person">
-                <img alt="#" src="/static/images/player.png">
-                <br>
+                {% if player is in t1_players%}
+                <img alt="#" src="/static/images/{{team1_name}}.png">
+                {% else %}
+                <img alt="#" src="/static/images/{{team2_name}}.png">
+                {% endif %}
                 <span>{{player}}</span>
               </div>
               {% endfor %}
             </div> 
 
-            <br>
-            <br>
+           
             
           </div>
         </div>
 
       </div>
     </div>
+
   </div>
 </div>
 
@@ -154,6 +150,7 @@
 </div>
 
 </section>
+
 <style>
 .chart-container{
   display: inline-block;
@@ -164,7 +161,7 @@
 }
 
 .ft-form__ground {
-    width: 30rem;
+    /* width: 30rem; */
     height: 46.75rem;
     margin: 0 2rem;
     padding-top: 1rem;
@@ -172,33 +169,42 @@
     background-repeat: no-repeat;
     background-position: 50%;
 }
-
+.ft-form__ground-players {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
 .ft-form__ground-players--row {
-    flex: 5 5;
+    flex: 2 2;
     display: flex;
     align-items: flex-start;
     justify-content: space-evenly;
     flex-wrap: wrap;
 }
 
-.ft-form__output--team-details {
+.ft-form__ground-players--person span {
+    color: var(--bg-1);
+    font-size: 1.1rem;
+    display: block;
+    max-width: 7rem;
+}
+/* .ft-form__output--team-details {
     display: flex;
     flex-shrink: 0;
-}
+} */
 
-.ft-form__output {
+/* .ft-form__output {
     flex: 3 1;
     display: flex;
     flex-direction: column;
     max-height: 83vh;
     overflow: auto;
     position: relative;
-}
+} */
 
 img{
 width: 50px;
 height: 50px;
-
 }
 </style>
 <script>
