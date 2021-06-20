@@ -242,6 +242,16 @@ height: 70px;
    team1 = document.getElementById('team1_name').innerHTML
    team2 = document.getElementById('team2_name').innerHTML
   
+  var colors = {
+    'CSK': 'hsl(57, 100%, 50%)',
+    'MI': 'hsl(204, 100%, 50%)',
+    'RR': 'hsl(298, 100%, 70%)',
+    'SRH': 'hsl(27, 100%, 50%)',
+    'KXIP': 'hsl(349, 100%, 50%)',
+    'DC': 'hsl(240, 100%, 50%)',
+    'KKR': 'hsl(280, 100%, 24%)',
+    'RCB': 'hsl(13, 4%, 38%)',
+  } 
 
 function get_data(str_data){
 
@@ -290,36 +300,14 @@ function get_piechart_data(str_data){
 function get_pie_chart(){
 
   var data = {
-  //labels: ['Team1', 'Team2', 'Batsmen Team1', 'Batsmen Team2', 'Bowlers Team1', 'Bowlers Team2', 'All-Rounders Team1', 'All-Rounders Team2','Wicket keeper Team1','Wicket keeper Team2'],
   labels: [team1, team2],
   datasets: [
-    { //teams 
-      backgroundColor: ['hsl(200, 100%, 50%)', 'hsl(16, 100%, 50%)'],
-      //data: get_piechart_data('teams')
+    { 
+      backgroundColor: [ colors[team1], colors[team2] ],
       data: get_data('teams')
     }
-    // },
-    // {
-    //   //Get Batsmen
-    //   backgroundColor: ['hsl(0, 100%, 60%)', 'hsl(0, 100%, 35%)'],
-    //   data: get_piechart_data('BAT')
-    // },
-    // {
-    //   backgroundColor: ['hsl(100, 100%, 60%)', 'hsl(100, 100%, 35%)'],
-    //   data: get_piechart_data('BWL')
-    // },
-    // {
-    //   backgroundColor: ['hsl(180, 100%, 60%)', 'hsl(180, 100%, 35%)'],
-    //   data: get_piechart_data('AR')
-    // },
-    // {
-    //   backgroundColor: ['hsl(280, 100%, 60%)', 'hsl(280, 100%, 35%)'],
-    //   data: get_piechart_data('WK')
-    // }
   ]
 };
-// </block:setup>
-  // <block:config:0>
   
     const config = {
   type: 'pie',
@@ -414,13 +402,13 @@ function get_bar_chart(){
         label: team1,
         data: get_barchart_data('team1'),
         //borderColor: 'hsl(200, 100%, 20%)',
-        backgroundColor: 'hsl(200, 100%, 50%)',
+        backgroundColor: colors[team1],
       },
       {
         label: team2,
         data: get_barchart_data('team2'),
         //borderColor: 'hsl(16, 100%, 20%)',
-        backgroundColor: 'hsl(16, 100%, 50%)',
+        backgroundColor: colors[team2],
       }
     ]
   };
@@ -431,17 +419,31 @@ const config = {
   type: 'bar',
   data: data,
   options: {
+    scales: {
+      y: {
+        title: {
+          display: true,
+          text: 'No of players'
+        },
+        min: 0,
+        max: 3,
+        ticks: {
+          // forces step size to be 50 units
+          stepSize: 1
+        }
+      }
+    },
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: 'top',
+        position: 'bottom',
       },
       title: {
         display: true,
         text: 'Chart.js Bar Chart'
       }
-    }
+    },
   },
 };
 // </block:config>
