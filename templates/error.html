@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div>
+    {% if msg is defined %}
+        <p>{{ msg }}</p>
+    {% endif %}
+</div>
+
+<button> <a href="{{url_for('home')}}">Back to Home Page</a></button>
+{% endblock %}

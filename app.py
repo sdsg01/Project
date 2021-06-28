@@ -1,5 +1,6 @@
 from logging import debug
-from flask import Flask, render_template, url_for, request
+import string
+from flask import Flask, render_template, url_for, request, flash, get_flashed_messages
 import pandas as pd
 from werkzeug.utils import redirect
 from pyfiles import *
@@ -54,6 +55,11 @@ def response():
         #Optimal Lineup
         lp_input = get_lp_input(df,model_output_df)
         lp_output = get_lp_output(lp_input, team1_name, team2_name)
+        if type(lp_output) == str:
+            #flash(lp_output)
+            print(lp_output)
+            return render_template('error.html', msg = lp_output)
+          
         print(lp_output.columns)
         lpcol = lp_output.columns
         players = lp_output[lpcol[0]]

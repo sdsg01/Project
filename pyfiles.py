@@ -201,6 +201,34 @@ def get_lp_output(processed_player_data, team1_name, team2_name):
 
     merged_processed_player_df = pd.merge(processed_player_data, selection_decision_variables_df, 
                                                     on = "player")
+    print('*********')
+    print(merged_processed_player_df.shape)
+    print(merged_processed_player_df)
+
+    if merged_processed_player_df.iloc[:,-3].sum()!=11:
+        msg_str ="Select 11 players from team1"
+        return msg_str
+    
+    if merged_processed_player_df.iloc[:,-2].sum()!=11:
+        msg_str ="Select 11 players from team2"
+        return msg_str
+
+    if 'role_WK' not in merged_processed_player_df.columns:
+        msg_str = "Select atleast 1 Wicket-Keepers"
+        return msg_str
+    if 'role_BAT' not in merged_processed_player_df.columns:
+        msg_str = "Select atleast 3 Batsmen"
+        return msg_str
+
+    if 'role_BWL' not in merged_processed_player_df.columns:
+        msg_str = "Select atleat 3 Bowlers"
+        return msg_str
+
+    if 'role_AR' not in merged_processed_player_df.columns:
+        msg_str = "Select atleast 1 All-Rounder"
+        return msg_str
+
+
     merged_processed_player_df["pulp_variable_name"] = merged_processed_player_df["pulp_variable"].apply(lambda x: x.name)
 
     # Create the objective Function to be maximized
