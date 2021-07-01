@@ -36,10 +36,15 @@ cities = ['Bangalore', 'Chandigarh', 'Delhi', 'Mumbai', 'Kolkata', 'Jaipur',
 
 
 def get_player_data(t1, t2):
+    t1role = t1 +"_player_role"
+    t2role = t2 +"_player_role"
     df = pd.read_csv('dataset\players.csv')
-    team1_players = df[t1].to_list()
-    team2_players = df[t2].to_list()
-    return team1_players, team2_players
+    team1_players = df[t1].dropna().to_list()
+    team2_players = df[t2].dropna().to_list()
+    team1_roles = df[t1role].dropna().to_list()
+    team2_roles = df[t2role].dropna().to_list()
+
+    return team1_players, team2_players, team1_roles, team2_roles
 
 def get_selected_player_data(team, team_players):
     df = pd.read_csv('dataset\players.csv')

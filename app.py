@@ -1,6 +1,6 @@
 from logging import debug
 import string
-from flask import Flask, render_template, url_for, request, flash, get_flashed_messages
+from flask import Flask, render_template, url_for, request
 import pandas as pd
 from werkzeug.utils import redirect
 from pyfiles import *
@@ -10,10 +10,41 @@ global team2_name
 
 app = Flask(__name__)
 
+#home page 1st
 @app.route("/", methods=["GET","POST"])
+def index():
+    return render_template('home.html')
+
+#teams page
+@app.route("/home", methods=["GET","POST"])
 def home():
     team1 = []
     team2 = []
+    if request.method == "POST":
+        print(request.form)
+        global team1_name
+        team1_name = request.form.get('Team1')
+        global team2_name
+        team2_name = request.form.get('Team2')
+
+        # # global stadium, city, toss_winner,toss_decision
+        # print(request.form)
+        # session['Stadium'] = request.form['Stadium']
+        # session['City'] = request.form['City']
+        # session['Toss Winner'] = request.form['Toss Winner']
+        # session['Decision'] = request.form['Decision']
+        # print(session)
+
+        t1, t2, t1_roles, t2_roles= get_player_data(team1_name, team2_name)
+        t1_len = len(t1)
+        t2_len = len(t2)
+        return render_template("index.html", t1 = t1, t2 = t2, t1_len =t1_len, t2_len=t2_len,teams = teams, stadiums = stadiums, cities = cities)
+    else:
+        return render_template("index.html", t1 = team1, t2 = team2, teams = teams, stadiums = stadiums, cities = cities)
+
+#select players page
+@app.route('/players/',methods=['GET','POST'])
+def players():
     if request.method == "POST":
         print(request.form)
         global team1_name
@@ -28,17 +59,31 @@ def home():
         toss_decision = request.form.get('Decision')
         print(stadium,city,toss_winner,toss_decision)
 
-        t1, t2 = get_player_data(team1_name, team2_name)
-        return render_template("index.html", t1 = t1, t2 = t2, teams = teams, stadiums = stadiums, cities = cities)
-    else:
-        return render_template("index.html", t1 = team1, t2 = team2, teams = teams, stadiums = stadiums, cities = cities)
+        # session['Stadium'] = request.form['Stadium']
+        # session['City'] = request.form['City']
+        # session['Toss Winner'] = request.form['Toss Winner']
+        # session['Decision'] = request.form['Decision']
+        # print(session)
 
+        t1, t2, t1_roles, t2_roles = get_player_data(team1_name, team2_name)
+        t1_len = len(t1)
+        t2_len = len(t2)
+        return render_template('players.html', t1 = t1, t2 = t2, t1_len = t1_len, t2_len = t2_len, t1_roles = t1_roles, t2_roles = t2_roles, team1_name = team1_name, team2_name = team2_name)
+    else:
+        return render_template('home.html')
+
+#response page
 @app.route('/response/', methods=['GET','POST'])
 def response():
     if request.method == 'POST':
-        # print(team1_name, team2_name)
+        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+        print(team1_name, team2_name)
+        print(request.form)
+        print(stadium,city,toss_winner,toss_decision)
+
         team1_players = request.form.getlist('team1')
         team2_players = request.form.getlist('team2')
+        print(team1_players)
         df1 = get_selected_player_data(team1_name, team1_players)
         df2 = get_selected_player_data(team2_name, team2_players)
         df = df1.append(df2)
@@ -94,7 +139,7 @@ def response():
 
         return render_template("response.html", t1_players = t1_players, t2_players = t2_players, data_players = players , len_data = len(players), data_teams = lp_teams, data_points = points, data_credits = credits, team1_name = team1_name, team2_name = team2_name, data_roles = roles, WK_players = WK_players, BAT_players = BAT_players, AR_players = AR_players, BWL_players = BWL_players)
     else:
-        return redirect({url_for('home')})
+        return redirect({url_for('error.html')})
 
 if __name__ == "__main__":
     app.run(debug=True)

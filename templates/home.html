@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+<script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+
+<style>
+    body, html {
+      height: 100%;
+  }
+  
+  /* The hero image */
+  .hero-image {
+    /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('static/images/stadium1.jpg');
+  
+    /* Set a specific height */
+    height: 50%;
+  
+    /* Position and center the image to scale nicely on all screens */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+  }
+  
+  /* Place text in the middle of the image */
+  .hero-text {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+  }
+  </style> 
+  
+  <div class="hero-image">
+    <div class="hero-text">
+      <h1><b>MAKE YOUR DREAM TEAM</b></h1>
+      <p>RIGHT NOW</p>
+    </div>
+  </div>
+
+
+  <section id="home" class="main_content">
+   <div class="row mt-5">
+
+        <div class="col-lg-12 col-sm-12">
+     
+            <div class="card card-body mb-3 shadow-sm">
+              <br>
+              <h2 class="text-center mb-1">
+                <b>HOW IT WORKS</b>
+              </h2>
+              <div class="row">
+                  <div class="col-md-4">
+                    <i class="far fa-hand-pointer" style="font-size: 48px;"></i>
+                      <h4><b>I.Select Match Details</b></h4>
+                      <p>Select match details including the tewo teams playing and stadium, its corresponding city and toss winner and toss decision as well.</p>
+                  </div>
+                  <div class="col-md-4">
+                    <i class="far fa-hand-pointer" style="font-size: 48px;"></i>
+                      <h4><b>II.Select Playing 22</b></h4>
+                      <p>Select playing 22 from line up that is announced for more better results. Or you can choose any 22 based on constraints of the game.<a href="https://www.dream11.com/games/point-system#cricket">Look at player requirements here.</a></a></p>
+                  </div>
+                  <div class="col-md-4">
+                    <i class="far fa-hand-pointer" style="font-size: 48px;"></i>
+                      <h4><b>III.Generate Dream Team</b></h4>
+                      <p>To earn maximum points, according to fantasy points scoring system, we provide a team that will get you the best possible rank.</p>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+  
+  <button type="button" class="btn btn-primary"><a href="{{url_for('home')}}">Get Started</a></button> 
+    
+
+{% endblock %}

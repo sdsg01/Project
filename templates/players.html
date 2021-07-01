@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+{% block content %}
+
+<p>{{team1_name}}</p>
+<div class='header'>
+    <h3>Select 22 players</h3>
+</div>
+<div class="row">
+    <div class="leftcolumn">
+      <div class="card">
+        <h2>TEAM 1(Can add actual team name and logo)</h2>
+        <h5>Select 11 Players</h5>
+         <!-- Add players -->
+         <form  method="POST" action="{{ url_for('response') }}">
+        <!-- Batsman -->
+        <div class="ft-form__ground-players--row">
+            {% for i in range(t1_len)%}
+                {% if t1_roles[i] == "BAT" %}
+                <div class="ft-form__ground-players--person"></div>
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="/static/images/{{team1_name}}.png" alt="{{t1[i]}}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{t1[i]}}</h5>
+                            <p class="card-text">{{t1_roles[i]}}</p>
+                            <input type="checkbox" id="select_players" name="team1" value="{{t1[i]}}"><label>{{t1[i]}}</label>
+                        </div>
+                    </div>
+            {% endif %}
+        {% endfor %}
+        </div>
+        <div class="container">
+            <button>GENERATE FT</button>
+        </div>
+
+        </form>
+
+        
+
+        <!-- Bowlers-->
+        <!-- <div class="ft-form__ground-players--row">
+            {% for i in range(t1_len)%}
+                {% if t1_roles[i] == "BWL" %}
+                <div class="ft-form__ground-players--person">
+                    <img alt="#" src="/static/images/{{team1_name}}.png">
+                    <span>{{t1[i]}}</span>
+                    <span>{{t1_roles[i]}}</span>
+                </div>
+                {% endif %}
+            {% endfor %}
+            </div> -->
+
+        <!-- Wicket Keepers -->
+        <!-- <div class="ft-form__ground-players--row">
+            {% for i in range(t1_len)%}
+                {% if t1_roles[i] == "WK" %}
+                <div class="ft-form__ground-players--person">
+                    <img alt="#" src="/static/images/{{team1_name}}.png">
+                    <span>{{t1[i]}}</span>
+                    <span>{{t1_roles[i]}}</span>
+                </div>
+                {% endif %}
+            {% endfor %}
+            </div> -->
+
+        <!-- All Rounders -->
+        <!-- <div class="ft-form__ground-players--row">
+            {% for i in range(t1_len)%}
+                {% if t1_roles[i] == "AR" %}
+                <div class="ft-form__ground-players--person">
+                    <img alt="#" src="/static/images/{{team1_name}}.png">
+                    <span>{{t1[i]}}</span>
+                    <span>{{t1_roles[i]}}</span>
+                </div>
+                {% endif %}
+            {% endfor %}
+            </div> -->
+        
+
+        <!-- </div> -->
+      <div class="card">
+        <h2>TEAM 2</h2>
+        <h5>Select 11 Players</h5>
+        <!-- Add players -->
+        <!-- Batsman -->
+        <!-- <div class="ft-form__ground-players--row">
+            {% for i in range(t2_len)%}
+                <div class="ft-form__ground-players--person">
+                    <img alt="#" src="/static/images/{{team1_name}}.png">
+                    <span>{{t2[i]}}</span>
+                    <span>{{t2_roles[i]}}</span>
+                </div>
+            {% endfor %}
+            </div> -->
+    
+            <!-- Bowlers-->
+            <!-- <div class="ft-form__ground-players--row">
+            {% for i in range(t2_len)%}
+                <div class="ft-form__ground-players--person">
+                    <img alt="#" src="/static/images/{{team1_name}}.png">
+                    <span>{{t2[i]}}</span>
+                    <span>{{t2_roles[i]}}</span>
+                </div>
+            {% endfor %}
+            </div> -->
+    
+            <!-- Wicket Keepers -->
+            <!-- <div class="ft-form__ground-players--row">
+                {% for i in range(t1_len)%}
+                    <div class="ft-form__ground-players--person">
+                        <img alt="#" src="/static/images/{{team1_name}}.png">
+                        <span>{{t2[i]}}</span>
+                        <span>{{t2_roles[i]}}</span>
+                    </div>
+                {% endfor %}
+            </div> -->
+    
+            <!-- All Rounders -->
+            <!-- <div class="ft-form__ground-players--row">
+                {% for i in range(t2_len)%}
+                    <div class="ft-form__ground-players--person">
+                        <img alt="#" src="/static/images/{{team1_name}}.png">
+                        <span>{{t2[i]}}</span>
+                        <span>{{t2_roles[i]}}</span>
+                    </div>
+                {% endfor %}
+            </div> -->
+      </div>
+    </div>
+</div>
+
+
+
+<style>
+.ft-form__ground-players--row {
+    flex: 1 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.ft-form__ground-players--person span {
+    color: var(--bg-1);
+    font-size: 1.1rem;
+    display: block;
+    max-width: 7rem;
+}
+</style>
+
+{% endblock %}
