@@ -72,10 +72,6 @@ def players():
     else:
         return render_template('home.html')
 
-#try
-@app.route('/trial/')
-def trial():
-    return render_template('selectteams.html')
 
 #response page
 @app.route('/response/', methods=['GET','POST'])

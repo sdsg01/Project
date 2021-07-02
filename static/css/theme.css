@@ -3742,7 +3742,7 @@ footer img {
   .dark-mode .Navbar,
   .dark-mode .expand,
   .dark-mode .navbar-right {
-    background: #1e1e30 !important;
+    background: #0c0c3b !important;
   }
 }
 @media (max-width: 769px) {

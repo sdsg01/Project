@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div>
+<div class="container">
     {% if msg is defined %}
-        <p>{{ msg }}</p>
+        <h2 style="align-content: center;"><p>{{ msg }}</p></h2>
     {% endif %}
+<a href="{{url_for('home')}}" class="btn btn-primary" role="button"  style="margin: 0 auto;" >Back to select teams Page</a>
 </div>
 
-<button> <a href="{{url_for('home')}}">Back to Home Page</a></button>
 {% endblock %}

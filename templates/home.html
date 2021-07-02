@@ -46,7 +46,7 @@
 
         <div class="col-lg-12 col-sm-12">
      
-            <div class="card card-body mb-3 shadow-sm">
+            <!-- <div class="card card-body mb-3 shadow-sm"> -->
               <br>
               <h2 class="text-center mb-1">
                 <b>HOW IT WORKS</b>
@@ -60,7 +60,7 @@
                   <div class="col-md-4">
                     <i class="far fa-hand-pointer" style="font-size: 48px;"></i>
                       <h4><b>II.Select Playing 22</b></h4>
-                      <p>Select playing 22 from line up that is announced for more better results. Or you can choose any 22 based on constraints of the game.<a href="https://www.dream11.com/games/point-system#cricket"> Look at player requirements here.</a></a></p>
+                      <p>Select playing 22 from line up that is announced for more better results. Or you can choose any 22 based on constraints of the game.<a href="https://www.dream11.com/games/point-system#cricket"> Look at points system here.</a></a></p>
                   </div>
                   <div class="col-md-4">
                     <i class="far fa-hand-pointer" style="font-size: 48px;"></i>
@@ -72,6 +72,32 @@
         </div>
     </div>
 </section>
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img class="d-block w-100" src="{{url_for('static', filename='images/ipl2.jpg')}}" alt="First slide">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="{{url_for('static', filename='images/stadium3.jpg')}}" alt="Second slide">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="{{url_for('static', filename='images/ipl1.jpg')}}" alt="Third slide">
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
 
 <section id="home" class="main_content">
   <!-- <div class="row mt-5"> -->
@@ -81,7 +107,7 @@
            <div class="card card-body mb-3 shadow-sm">
              <br>
              <h2 class="text-center mb-1">
-               <b>ALL ABOUT CRICKET</b>
+               <b>ALL ABOUT CREATING YOUR PERFECT TEAM</b>
              </h2>
              <p><b>What is Fantasy Cricket?</b></p>
              <p>Fantasy Cricket is an online gaming platform which works in co-ordination with the actual(live) cricket game. There are multiple fantasy cricket platforms which host multiple fantasy contest in which the user can participate by creating a team of 11 players out of the 22 players playing in the match. Based on the performance of the cricketers the fantasy contestant’s team are rated and ultimately the contestant with the best team is rewarded with cash price. 
@@ -106,7 +132,7 @@
 
 </section>
 <!-- <div class="row mt-5"> -->
-  <div class="container1">
+  <div class="container">
   <a href="{{url_for('home')}}" class="btn btn-primary btn-block" role="button"  style="margin: 0 auto;">Get Started</a>
 
 </div>
