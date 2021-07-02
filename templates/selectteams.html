@@ -5,12 +5,14 @@
 
 <!--HOME SECTION-->
 
-<section id="home" class="main_content">
+<section id="home" class="main_content" >
+  <div style="background-image: url('static/images/stadium.jpg');"></div>
     <div class="container">
-      <div class="row mt-5">
+      <!-- <div class="row mt-1"> -->
     
     <!--LEFT SIDE HOME-->
-    <div class="col-md-6 col-sm-12">
+       <!-- <div class="col-md-6 col-sm-12"> -->
+         <div>
         <div class="card card-body mb-3 shadow-sm">
           <h4 class="text-center mb-1">
             <b>Select Teams</b>
@@ -27,9 +29,8 @@
                 <div class="card-title lead"><b>Team1</b></div>                   
                  <select name="Team1" id="team1Select" class='form-control' onclick=changeTeam1(this.value)>
                   <option style="display: none;"></option>
-                  {% for t, team in teams.items() %}
-                  <option value="{{t}}">{{team}}</option>
-                  {% endfor %}
+
+                  <!-- <option value="{{t}}">{{team}}</option> -->
                  </select> 
               </div>
             </div>
@@ -40,9 +41,8 @@
                   <div class="card-title lead"><b>Team2</b></div>
                    <select name="Team2" id="team2Select" class='form-control' onclick=changeTeam2(this.value)>
                     <option style="display: none;"></option>
-                    {% for t,team in teams.items() %}
-                    <option value="{{t}}">{{team}}</option>
-                    {% endfor %}
+                    
+                    <!-- <option value="{{t}}">{{team}}</option> -->
                    </select> 
                 </div>
             </div>
@@ -113,11 +113,6 @@
         </div>
     </div>
 
-    
-    
-      
-        </div>
-    </div> 
 </div>
 </div>
 </section>

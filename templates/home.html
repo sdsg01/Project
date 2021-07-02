@@ -10,7 +10,7 @@
   /* The hero image */
   .hero-image {
     /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
-    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('static/images/stadium1.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('static/images/stadium1.jpg');
   
     /* Set a specific height */
     height: 50%;
@@ -42,7 +42,7 @@
 
 
   <section id="home" class="main_content">
-   <div class="row mt-5">
+   <!-- <div class="row mt-5"> -->
 
         <div class="col-lg-12 col-sm-12">
      
@@ -60,7 +60,7 @@
                   <div class="col-md-4">
                     <i class="far fa-hand-pointer" style="font-size: 48px;"></i>
                       <h4><b>II.Select Playing 22</b></h4>
-                      <p>Select playing 22 from line up that is announced for more better results. Or you can choose any 22 based on constraints of the game.<a href="https://www.dream11.com/games/point-system#cricket">Look at player requirements here.</a></a></p>
+                      <p>Select playing 22 from line up that is announced for more better results. Or you can choose any 22 based on constraints of the game.<a href="https://www.dream11.com/games/point-system#cricket"> Look at player requirements here.</a></a></p>
                   </div>
                   <div class="col-md-4">
                     <i class="far fa-hand-pointer" style="font-size: 48px;"></i>
@@ -73,8 +73,43 @@
     </div>
 </section>
 
-  
-  <button type="button" class="btn btn-primary"><a href="{{url_for('home')}}">Get Started</a></button> 
+<section id="home" class="main_content">
+  <!-- <div class="row mt-5"> -->
+
+       <div class="col-lg-12 col-sm-12">
     
+           <div class="card card-body mb-3 shadow-sm">
+             <br>
+             <h2 class="text-center mb-1">
+               <b>ALL ABOUT CRICKET</b>
+             </h2>
+             <p><b>What is Fantasy Cricket?</b></p>
+             <p>Fantasy Cricket is an online gaming platform which works in co-ordination with the actual(live) cricket game. There are multiple fantasy cricket platforms which host multiple fantasy contest in which the user can participate by creating a team of 11 players out of the 22 players playing in the match. Based on the performance of the cricketers the fantasy contestant’s team are rated and ultimately the contestant with the best team is rewarded with cash price. 
+              For more reference, <a href="https://en.wikipedia.org/wiki/Fantasy_cricket ">click here! </a>
+              </p>
+              <p><b>What does our platform do?</b></p>
+              <p>The Optimized team selection algorithm” is a Machine Learning (ML) based model which uses the historical data of all the IPL matches to predict the performance of the players in the upcoming match. Hence, here we are using the computers computational power for calculating the complex statistical data and human’s analytical skill to select the important features for predicting player’s performance. Using the results of the ML model we recommend you the most optimal team to participate in the fantasy cricket.</p>
+            <p><b>How to use our result for generating profits?</b></p>
+            <p>The aspiring contestant of fantasy cricket need to execute following steps:<br>
+              1.	Open the home page of the website.<br>
+              2.	Select two teams which are going to play the next game.<br> 
+              3.	Once two teams are selected the contestant has to select 11 players from each side who are going to play the game.<br>
+              4.	After completing step 3 out platform will provide the best probable players who can perform better than others based on their past performance.<br>
+              5.	Participate in various fantasy contest on platforms like Dream11, FanFight, Howzat, MyCricket11 etc. Based upon the team’s performance you will be rewarded.<br>
+              </p>
+
+            <p><b>How reliable the result is?</b></p>
+            <p>Based on the past performance of the model it has been observed that the model is successfully predicting 7-8 players on an average out of 11 players. This result is 63-72% accurate if the output is compared with Dream team(Most optimal Team).</p>
+            </div>
+      </div>
+  </div>
+
+</section>
+<!-- <div class="row mt-5"> -->
+  <div class="container1">
+  <a href="{{url_for('home')}}" class="btn btn-primary btn-block" role="button"  style="margin: 0 auto;">Get Started</a>
+
+</div>
+ 
 
 {% endblock %}

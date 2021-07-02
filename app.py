@@ -72,11 +72,15 @@ def players():
     else:
         return render_template('home.html')
 
+#try
+@app.route('/trial/')
+def trial():
+    return render_template('selectteams.html')
+
 #response page
 @app.route('/response/', methods=['GET','POST'])
 def response():
     if request.method == 'POST':
-        print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
         print(team1_name, team2_name)
         print(request.form)
         print(stadium,city,toss_winner,toss_decision)
